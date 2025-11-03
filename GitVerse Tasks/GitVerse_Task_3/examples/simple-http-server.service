@@ -1,0 +1,26 @@
+[Service]
+# Simple Python HTTP server example
+# This demonstrates the most basic service configuration
+
+# Command to execute - starts a Python HTTP server on port 8080
+ExecStart=/usr/bin/python3 -m http.server 8080
+
+# Restart policy - always restart if the process exits
+Restart=always
+
+# Run as a non-privileged user for security
+User=nobody
+
+# Set environment variable for the port
+Environment=PORT=8080
+
+# Description: This is a minimal example that starts a Python HTTP server.
+# The server will serve files from the current directory on port 8080.
+# If the process crashes or exits, it will automatically restart.
+#
+# Usage:
+#   1. Copy this file to your GitProc services repository
+#   2. Commit: git add simple-http-server.service && git commit -m "Add HTTP server"
+#   3. Start: python3 -m gitproc.cli start simple-http-server
+#   4. Access: http://localhost:8080
+#   5. View logs: python3 -m gitproc.cli logs simple-http-server

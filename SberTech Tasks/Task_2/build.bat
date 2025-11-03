@@ -1,0 +1,3 @@
+@echo off
+echo Building uringKV via WSL...
+wsl bash -c "./build.sh"

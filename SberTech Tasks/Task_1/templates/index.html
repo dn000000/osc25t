@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPM Dependency Graph Visualizer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://unpkg.com/cytoscape@3.26.0/dist/cytoscape.min.js" 
+            onerror="console.error('Failed to load Cytoscape from unpkg'); this.src='https://cdn.jsdelivr.net/npm/cytoscape@3.26.0/dist/cytoscape.min.js'"></script>
+    <script src="https://unpkg.com/cytoscape-cose-bilkent@4.1.0/cytoscape-cose-bilkent.js"
+            onerror="console.error('Failed to load cose-bilkent from unpkg'); this.src='https://cdn.jsdelivr.net/npm/cytoscape-cose-bilkent@4.1.0/cytoscape-cose-bilkent.js'"></script>
+    <script>
+        // Debug: Check if libraries are loaded
+        window.addEventListener('load', function() {
+            console.log('Window loaded');
+            console.log('cytoscape available:', typeof cytoscape !== 'undefined');
+            console.log('cytoscapeCoseBilkent available:', typeof cytoscapeCoseBilkent !== 'undefined');
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RPM Dependency Graph Visualizer</h1>
+            <p class="subtitle">OpenScaler Repository Analysis</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="graph-type">Graph Type:</label>
+                <select id="graph-type">
+                    <option value="runtime">Runtime Dependencies</option>
+                    <option value="build">Build Dependencies</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="search-input">Search Package:</label>
+                <input type="text" id="search-input" placeholder="Enter package name...">
+                <button id="search-btn">Search</button>
+                <button id="clear-search-btn">Clear</button>
+            </div>
+
+            <div class="control-group">
+                <button id="reset-view-btn">Reset View</button>
+                <button id="fit-graph-btn">Fit to Screen</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p id="loading-message">Loading graph data...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            <p id="error-message"></p>
+        </div>
+
+        <div id="graph-container"></div>
+
+        <div id="package-details" class="package-details" style="display: none;">
+            <div class="details-header">
+                <h3>Package Details</h3>
+                <button id="close-details-btn">&times;</button>
+            </div>
+            <div class="details-content">
+                <p><strong>Name:</strong> <span id="detail-name"></span></p>
+                <p><strong>Version:</strong> <span id="detail-version"></span></p>
+                <p><strong>Architecture:</strong> <span id="detail-arch"></span></p>
+                <div id="detail-dependencies">
+                    <strong>Dependencies:</strong>
+                    <ul id="dependencies-list"></ul>
+                </div>
+                <div id="detail-dependents">
+                    <strong>Dependent Packages:</strong>
+                    <ul id="dependents-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Total Packages:</span>
+                <span id="stat-packages" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Dependencies:</span>
+                <span id="stat-dependencies" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Circular Dependencies:</span>
+                <span id="stat-cycles" class="stat-value">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/graph.js"></script>
+</body>
+</html>

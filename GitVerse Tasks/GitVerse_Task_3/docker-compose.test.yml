@@ -1,0 +1,33 @@
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: gitproc-test
+    volumes:
+      # Mount source code for live updates during development
+      - ./gitproc:/app/gitproc:ro
+      - ./tests:/app/tests:ro
+      # Mount output directories to persist results
+      - ./htmlcov:/app/htmlcov
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTEST_TIMEOUT=30
+    command:
+      - /bin/sh
+      - -c
+      - |
+        echo '========================================='
+        echo 'GitProc Docker Test Suite'
+        echo '========================================='
+        echo ''
+        pytest tests/ --verbose --tb=short --cov=gitproc --cov-report=term-missing --cov-report=html:htmlcov --cov-report=xml:coverage.xml
+        echo ''
+        echo '========================================='
+        echo 'Test Results Summary'
+        echo '========================================='
+        echo 'Coverage reports generated:'
+        echo '  - HTML: htmlcov/index.html'
+        echo '  - XML: coverage.xml'
+        echo '  - Data: .coverage'
+        echo '========================================='

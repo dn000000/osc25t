@@ -1,0 +1,66 @@
+[Unit]
+Description=Git-based System Audit & Compliance Monitor
+Documentation=docs
+After=network.target local-fs.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+# Main service command
+ExecStart=/usr/local/bin/sysaudit monitor --config /etc/sysaudit/config.yaml --daemon
+ExecReload=/bin/kill -HUP $MAINPID
+
+# Working directory
+WorkingDirectory=/var/lib/sysaudit
+
+# Restart policies (Requirement 7.2)
+Restart=on-failure
+RestartSec=10s
+StartLimitInterval=300
+StartLimitBurst=5
+
+# Process management (Requirement 7.3)
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30s
+
+# Security hardening options (Requirement 7.4)
+# Filesystem protections
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/sysaudit /var/log /etc/sysaudit
+ReadOnlyPaths=/etc /usr/local/bin /usr/bin
+
+# Privilege restrictions
+NoNewPrivileges=false
+PrivateTmp=true
+PrivateDevices=false
+
+# Namespace isolation
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# System call filtering
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources
+
+# Capability restrictions
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH CAP_FOWNER CAP_CHOWN CAP_FSETID
+AmbientCapabilities=CAP_DAC_READ_SEARCH
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=512
+TasksMax=256
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sysaudit
+
+[Install]
+WantedBy=multi-user.target

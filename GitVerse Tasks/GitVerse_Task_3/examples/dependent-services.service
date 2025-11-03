@@ -1,0 +1,84 @@
+[Service]
+# Application with service dependencies
+# This demonstrates the After directive for controlling startup order
+
+# Command to execute - starts a web application
+ExecStart=/usr/bin/python3 /opt/webapp/server.py
+
+# Restart policy
+Restart=always
+
+# Run as web user
+User=webuser
+
+# Environment configuration
+Environment=DATABASE_HOST=localhost
+Environment=DATABASE_PORT=5432
+Environment=REDIS_HOST=localhost
+Environment=REDIS_PORT=6379
+Environment=APP_PORT=8000
+
+# Resource limits
+MemoryLimit=512M
+CPUQuota=100%
+
+# Service Dependencies
+# This service will only start after these services are running
+After=database.service
+After=redis.service
+After=network.service
+
+# Health check
+HealthCheckURL=http://localhost:8000/health
+HealthCheckInterval=60
+
+# Description: This example demonstrates service dependencies using the After directive.
+# The web application depends on a database and Redis cache, so it should only
+# start after those services are running.
+#
+# Dependency Resolution:
+#   - GitProc builds a dependency graph from all After directives
+#   - Services are started in topological order
+#   - Circular dependencies are detected and reported as errors
+#   - If a dependency fails to start, dependent services won't start
+#
+# Example Dependency Chain:
+#   1. network.service (no dependencies)
+#   2. database.service (After=network.service)
+#   3. redis.service (After=network.service)
+#   4. webapp.service (After=database.service, redis.service, network.service)
+#
+# Creating the dependency services:
+#
+#   database.service:
+#   [Service]
+#   ExecStart=/usr/bin/postgres -D /var/lib/postgresql/data
+#   Restart=always
+#   User=postgres
+#   After=network.service
+#
+#   redis.service:
+#   [Service]
+#   ExecStart=/usr/bin/redis-server /etc/redis/redis.conf
+#   Restart=always
+#   User=redis
+#   After=network.service
+#
+#   network.service:
+#   [Service]
+#   ExecStart=/bin/sleep infinity
+#   Restart=always
+#
+# Usage:
+#   1. Create all dependency service files (database.service, redis.service, etc.)
+#   2. Copy this file to your GitProc services repository
+#   3. Commit all files: git add *.service && git commit -m "Add services"
+#   4. Start services: python3 -m gitproc.cli start dependent-services
+#      (GitProc will automatically start dependencies first)
+#   5. List all services: python3 -m gitproc.cli list
+#
+# Notes:
+#   - Multiple After directives can be specified
+#   - Dependencies must exist in the repository
+#   - Circular dependencies (A→B→A) will cause an error
+#   - Use 'gitproc list' to see all services and their status

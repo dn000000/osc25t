@@ -1,0 +1,60 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+dist
+build
+*.egg
+.pytest_cache
+.coverage
+htmlcov
+.mypy_cache
+.tox
+.venv
+venv
+env
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Documentation (кроме необходимых)
+*.md
+!README.md
+!TESTING.md
+
+# Logs
+*.log
+logs
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+tmp
+temp
+
+# Coverage reports
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Test artifacts
+.pytest_cache/
+test-results/

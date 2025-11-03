@@ -1,0 +1,22 @@
+services:
+  gitproc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gitproc-manual-test
+    volumes:
+      - ./gitproc:/app/gitproc:ro
+      - gitproc-data:/etc/gitproc
+      - gitproc-logs:/var/log/gitproc
+      - gitproc-state:/var/lib/gitproc
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    privileged: true  # Needed for cgroups and process isolation
+    command: /bin/bash
+
+volumes:
+  gitproc-data:
+  gitproc-logs:
+  gitproc-state:

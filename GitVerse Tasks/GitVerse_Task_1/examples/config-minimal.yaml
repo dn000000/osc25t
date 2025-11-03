@@ -1,0 +1,20 @@
+# Minimal System Audit Configuration
+# Quick start configuration with essential settings only
+
+repository:
+  path: /var/lib/sysaudit
+  baseline: main
+
+monitoring:
+  # Monitor these critical directories
+  paths:
+    - /etc
+  
+  # Use default blacklist patterns
+  blacklist_file: /etc/sysaudit/blacklist.txt
+
+compliance:
+  auto_check: false
+
+alerts:
+  enabled: true

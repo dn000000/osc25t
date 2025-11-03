@@ -1,0 +1,53 @@
+# System Audit Configuration File
+# This is an example configuration file for the Git-based System Audit & Compliance Monitor
+
+repository:
+  # Path where the audit Git repository will be stored
+  # This directory will contain the Git history of all monitored files
+  path: /var/lib/sysaudit
+  
+  # Baseline branch name for drift detection
+  # Changes will be compared against this branch
+  baseline: main
+  
+  # Enable GPG signing of commits (requires GPG setup)
+  # Set to true if you want cryptographic verification of commits
+  gpg_sign: false
+
+monitoring:
+  # Paths to monitor for changes (can be multiple)
+  # Add all critical directories you want to track
+  paths:
+    - /etc
+    - /usr/local/bin
+  
+  # Optional: Path to blacklist file (patterns to ignore)
+  # Files matching these patterns will not be monitored
+  blacklist_file: /etc/sysaudit/blacklist.txt
+  
+  # Optional: Path to whitelist file (only monitor these patterns)
+  # If set, only files matching these patterns will be monitored
+  whitelist_file: null
+  
+  # Batch events within this interval (seconds)
+  # Multiple changes within this window will be grouped into one commit
+  batch_interval: 5
+  
+  # Maximum number of events per batch
+  # When this limit is reached, a commit is created immediately
+  batch_size: 10
+
+compliance:
+  # Automatically run compliance checks on file changes
+  # When enabled, security checks run automatically during monitoring
+  auto_check: false
+
+alerts:
+  # Enable alert system
+  # Sends notifications for critical security issues
+  enabled: true
+  
+  # Optional: Webhook URL for alerts
+  # POST requests will be sent to this URL for HIGH severity issues
+  webhook_url: null
+  # Example: webhook_url: https://hooks.example.com/alerts

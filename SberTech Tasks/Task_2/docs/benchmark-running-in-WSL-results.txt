@@ -1,0 +1,146 @@
+Benchmark mode running in WSL:
+
+./uringkv bench
+
+=== uringKV Benchmark ===
+Configuration:
+  Total keys: 1000000
+  Read percentage: 70%
+  Write percentage: 30%
+  Duration: 60 seconds
+  Data path: ./data
+
+2025-10-26T17:35:24.985667Z  INFO ThreadId(01) Starting crash recovery...
+2025-10-26T17:35:24.985690Z  INFO ThreadId(01) Rebuilding index from 0 SST files
+2025-10-26T17:35:24.985693Z  INFO ThreadId(01) Index rebuild complete: 0 SST files covering ~0 keys (SST keys not loaded into index)
+2025-10-26T17:35:24.987593Z  INFO ThreadId(01) Recovering WAL segment: "./data/wal/00000001.wal"
+2025-10-26T17:35:24.987731Z  INFO ThreadId(01) WAL segment is empty, skipping
+2025-10-26T17:35:24.987751Z  INFO ThreadId(01) Recovered 0 WAL entries
+2025-10-26T17:35:24.987763Z  INFO ThreadId(01) Crash recovery complete: 0 operations replayed, sequence reset to 1
+Populating initial data...
+  Populated 10000 / 1000000 keys
+  Populated 20000 / 1000000 keys
+  Populated 30000 / 1000000 keys
+  Populated 40000 / 1000000 keys
+  Populated 50000 / 1000000 keys
+  Populated 60000 / 1000000 keys
+  Populated 70000 / 1000000 keys
+  Populated 80000 / 1000000 keys
+  Populated 90000 / 1000000 keys
+  Populated 100000 / 1000000 keys
+  Populated 110000 / 1000000 keys
+  Populated 120000 / 1000000 keys
+  Populated 130000 / 1000000 keys
+  Populated 140000 / 1000000 keys
+  Populated 150000 / 1000000 keys
+  Populated 160000 / 1000000 keys
+  Populated 170000 / 1000000 keys
+  Populated 180000 / 1000000 keys
+  Populated 190000 / 1000000 keys
+  Populated 200000 / 1000000 keys
+  Populated 210000 / 1000000 keys
+  Populated 220000 / 1000000 keys
+  Populated 230000 / 1000000 keys
+  Populated 240000 / 1000000 keys
+  Populated 250000 / 1000000 keys
+  Populated 260000 / 1000000 keys
+  Populated 270000 / 1000000 keys
+  Populated 280000 / 1000000 keys
+  Populated 290000 / 1000000 keys
+  Populated 300000 / 1000000 keys
+  Populated 310000 / 1000000 keys
+  Populated 320000 / 1000000 keys
+  Populated 330000 / 1000000 keys
+  Populated 340000 / 1000000 keys
+  Populated 350000 / 1000000 keys
+  Populated 360000 / 1000000 keys
+  Populated 370000 / 1000000 keys
+  Populated 380000 / 1000000 keys
+  Populated 390000 / 1000000 keys
+  Populated 400000 / 1000000 keys
+  Populated 410000 / 1000000 keys
+  Populated 420000 / 1000000 keys
+  Populated 430000 / 1000000 keys
+  Populated 440000 / 1000000 keys
+  Populated 450000 / 1000000 keys
+  Populated 460000 / 1000000 keys
+  Populated 470000 / 1000000 keys
+  Populated 480000 / 1000000 keys
+  Populated 490000 / 1000000 keys
+  Populated 500000 / 1000000 keys
+  Populated 510000 / 1000000 keys
+  Populated 520000 / 1000000 keys
+  Populated 530000 / 1000000 keys
+  Populated 540000 / 1000000 keys
+  Populated 550000 / 1000000 keys
+  Populated 560000 / 1000000 keys
+  Populated 570000 / 1000000 keys
+  Populated 580000 / 1000000 keys
+  Populated 590000 / 1000000 keys
+  Populated 600000 / 1000000 keys
+  Populated 610000 / 1000000 keys
+  Populated 620000 / 1000000 keys
+  Populated 630000 / 1000000 keys
+  Populated 640000 / 1000000 keys
+  Populated 650000 / 1000000 keys
+  Populated 660000 / 1000000 keys
+  Populated 670000 / 1000000 keys
+  Populated 680000 / 1000000 keys
+  Populated 690000 / 1000000 keys
+  Populated 700000 / 1000000 keys
+  Populated 710000 / 1000000 keys
+  Populated 720000 / 1000000 keys
+  Populated 730000 / 1000000 keys
+  Populated 740000 / 1000000 keys
+  Populated 750000 / 1000000 keys
+  Populated 760000 / 1000000 keys
+  Populated 770000 / 1000000 keys
+  Populated 780000 / 1000000 keys
+  Populated 790000 / 1000000 keys
+  Populated 800000 / 1000000 keys
+  Populated 810000 / 1000000 keys
+  Populated 820000 / 1000000 keys
+  Populated 830000 / 1000000 keys
+  Populated 840000 / 1000000 keys
+  Populated 850000 / 1000000 keys
+  Populated 860000 / 1000000 keys
+  Populated 870000 / 1000000 keys
+  Populated 880000 / 1000000 keys
+  Populated 890000 / 1000000 keys
+  Populated 900000 / 1000000 keys
+  Populated 910000 / 1000000 keys
+  Populated 920000 / 1000000 keys
+  Populated 930000 / 1000000 keys
+  Populated 940000 / 1000000 keys
+  Populated 950000 / 1000000 keys
+  Populated 960000 / 1000000 keys
+  Populated 970000 / 1000000 keys
+  Populated 980000 / 1000000 keys
+  Populated 990000 / 1000000 keys
+  Populated 1000000 / 1000000 keys
+✓ Initial data populated
+
+Running benchmark...
+  Operations: 130000 | Throughput: 2224 ops/sec
+
+=== Benchmark Results ===
+Duration: 60.00 seconds
+Total operations: 133359
+  Reads: 93466 (70.1%)
+  Writes: 39893 (29.9%)
+Throughput: 2223 ops/sec
+
+Latency Percentiles (microseconds):
+  put:
+    p50: 1104.00 µs
+    p95: 1899.00 µs
+    p99: 2699.00 µs
+  get:
+    p50: 152.00 µs
+    p95: 260.00 µs
+    p99: 341.00 µs
+
+System Metrics:
+  Memory allocations: 1039893
+  fsync calls: 0
+  fdatasync calls: 1039924

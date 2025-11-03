@@ -1,0 +1,62 @@
+[Service]
+# Application with HTTP health check monitoring
+# This demonstrates automatic health monitoring and restart on failure
+
+# Command to execute - starts a Flask application
+ExecStart=/usr/bin/python3 /opt/myapp/app.py
+
+# Restart policy - always restart on exit
+Restart=always
+
+# Run as application user
+User=appuser
+
+# Environment variables for the application
+Environment=FLASK_APP=app.py
+Environment=FLASK_ENV=production
+Environment=PORT=5000
+Environment=DATABASE_URL=postgresql://localhost/myapp
+
+# Resource limits
+MemoryLimit=256M
+CPUQuota=75%
+
+# Health Check Configuration
+# GitProc will send GET requests to this URL
+HealthCheckURL=http://localhost:5000/health
+
+# Check health every 30 seconds
+HealthCheckInterval=30
+
+# Description: This example demonstrates HTTP health check monitoring.
+# GitProc will periodically send GET requests to the health check URL.
+# If the endpoint returns anything other than HTTP 200 OK, or if the
+# request times out, GitProc will automatically restart the service.
+#
+# Health Endpoint Requirements:
+#   Your application must implement a /health endpoint that:
+#   - Returns HTTP 200 when healthy
+#   - Returns non-200 status when unhealthy
+#   - Responds within 5 seconds (default timeout)
+#
+# Example Flask health endpoint:
+#   @app.route('/health')
+#   def health():
+#       # Check database connection, etc.
+#       if database_is_connected():
+#           return 'OK', 200
+#       else:
+#           return 'Database unavailable', 503
+#
+# Usage:
+#   1. Ensure your application has a /health endpoint
+#   2. Copy this file to your GitProc services repository
+#   3. Commit: git add app-with-healthcheck.service && git commit -m "Add app"
+#   4. Start: python3 -m gitproc.cli start app-with-healthcheck
+#   5. Monitor: python3 -m gitproc.cli logs app-with-healthcheck --follow
+#
+# Notes:
+#   - Health checks run in separate threads to avoid blocking
+#   - Failed health checks are logged with timestamps
+#   - Adjust HealthCheckInterval based on your application's needs
+#   - Lower intervals provide faster failure detection but more overhead

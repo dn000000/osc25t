@@ -1,0 +1,5 @@
+# Linux-specific requirements (includes RPM parsing support)
+-r requirements.txt
+
+# RPM parsing (requires rpm command-line tool)
+rpm-py-installer==1.1.0

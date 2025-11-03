@@ -1,0 +1,26 @@
+# Dockerfile for running GitProc tests in a Linux container
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install git (required for GitPython)
+RUN apt-get update && \
+    apt-get install -y git && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first for better caching
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire project
+COPY . .
+
+# Set Python path
+ENV PYTHONPATH=/app
+
+# Default command runs tests
+CMD ["pytest", "tests/", "--verbose", "--tb=short", "--cov=gitproc", "--cov-report=term-missing", "--cov-report=html:htmlcov", "--cov-report=xml:coverage.xml"]

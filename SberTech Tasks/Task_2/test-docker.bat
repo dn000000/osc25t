@@ -1,0 +1,3 @@
+@echo off
+echo Running tests in Docker with privileged mode...
+docker run --rm --privileged uringkv:latest cargo test --release -- --test-threads=1 --nocapture %*

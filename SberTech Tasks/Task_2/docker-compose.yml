@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  uringkv:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/app/data
+      - ./build:/app/build
+    environment:
+      - RUST_LOG=info
+    command: ["./target/release/uringkv", "--help"]
+  
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - .:/app
+    environment:
+      - RUST_LOG=debug
+    # Use privileged mode for io_uring operations
+    privileged: true
+    command: ["cargo", "test", "--release", "--", "--test-threads=1"]
+  
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./build:/output
+    command: >
+      sh -c "cp /app/target/release/uringkv /output/ &&
+             cp /app/target/release/liburingkv.* /output/ 2>/dev/null || true &&
+             chmod +x /output/uringkv &&
+             echo 'Binaries copied to ./build/' &&
+             ls -lh /output/"

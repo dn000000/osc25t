@@ -1,0 +1,376 @@
+name: Docker CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # Job 1: Сборка Docker образа
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log in to Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+      
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          load: true
+          tags: sysaudit:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Save Docker image
+        run: |
+          docker save sysaudit:test | gzip > sysaudit-image.tar.gz
+      
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: sysaudit-image.tar.gz
+          retention-days: 1
+
+  # Job 2: Unit тесты
+  test-unit:
+    name: Unit Tests
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+      
+      - name: Load Docker image
+        run: |
+          docker load < sysaudit-image.tar.gz
+      
+      - name: Run unit tests
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            -v ${{ github.workspace }}/htmlcov:/app/htmlcov \
+            sysaudit:test \
+            python run_tests.py --unit --coverage --html-coverage
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: test-results/
+      
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: htmlcov/
+
+  # Job 3: Integration тесты
+  test-integration:
+    name: Integration Tests
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+      
+      - name: Load Docker image
+        run: |
+          docker load < sysaudit-image.tar.gz
+      
+      - name: Run integration tests
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            sysaudit:test \
+            python run_tests.py --integration
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: test-results/
+
+  # Job 4: Compliance тесты
+  test-compliance:
+    name: Compliance Tests
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+      
+      - name: Load Docker image
+        run: |
+          docker load < sysaudit-image.tar.gz
+      
+      - name: Run compliance tests
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            sysaudit:test \
+            python run_tests.py --compliance
+      
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compliance-test-results
+          path: test-results/
+
+  # Job 5: E2E тесты (реальные пользовательские сценарии)
+  test-e2e:
+    name: E2E Tests (Real User Scenarios)
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+      
+      - name: Load Docker image
+        run: |
+          docker load < sysaudit-image.tar.gz
+      
+      - name: Run E2E tests
+        run: |
+          docker run --rm \
+            --user root \
+            -v ${{ github.workspace }}/test-results:/app/test-results \
+            -e PYTHONUNBUFFERED=1 \
+            sysaudit:test \
+            python tests/e2e/test_real_user_scenarios.py
+      
+      - name: Upload E2E test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-results
+          path: test-results/
+
+  # Job 6: Генерация итогового отчета
+  report:
+    name: Generate Test Report
+    needs: [test-unit, test-integration, test-compliance, test-e2e]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+      
+      - name: Generate consolidated report
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from datetime import datetime
+          from pathlib import Path
+          
+          # Сбор всех результатов
+          artifacts_dir = Path("artifacts")
+          report = {
+              "timestamp": datetime.now().isoformat(),
+              "project": "sysaudit",
+              "version": "0.1.0",
+              "commit": "${{ github.sha }}",
+              "branch": "${{ github.ref_name }}",
+              "tests": {}
+          }
+          
+          # Поиск JSON отчетов
+          for json_file in artifacts_dir.rglob("*.json"):
+              try:
+                  with open(json_file) as f:
+                      data = json.load(f)
+                      test_type = json_file.stem.replace("-report", "")
+                      report["tests"][test_type] = data
+              except Exception as e:
+                  print(f"Error reading {json_file}: {e}")
+          
+          # Подсчет общей статистики
+          total_passed = sum(t.get("passed", 0) for t in report["tests"].values() if isinstance(t, dict))
+          total_failed = sum(t.get("failed", 0) for t in report["tests"].values() if isinstance(t, dict))
+          total_tests = total_passed + total_failed
+          
+          report["summary"] = {
+              "total_tests": total_tests,
+              "passed": total_passed,
+              "failed": total_failed,
+              "success_rate": f"{(total_passed / total_tests * 100):.1f}%" if total_tests > 0 else "N/A"
+          }
+          
+          # Сохранение отчета
+          os.makedirs("final-report", exist_ok=True)
+          with open("final-report/test-report.json", "w") as f:
+              json.dump(report, f, indent=2)
+          
+          # Генерация Markdown отчета
+          md_report = f"""# Test Report
+          
+          **Project:** {report['project']}  
+          **Version:** {report['version']}  
+          **Commit:** {report['commit'][:8]}  
+          **Branch:** {report['branch']}  
+          **Timestamp:** {report['timestamp']}
+          
+          ## Summary
+          
+          - **Total Tests:** {report['summary']['total_tests']}
+          - **Passed:** {report['summary']['passed']} ✓
+          - **Failed:** {report['summary']['failed']} ✗
+          - **Success Rate:** {report['summary']['success_rate']}
+          
+          ## Test Results by Type
+          
+          """
+          
+          for test_type, data in report["tests"].items():
+              if isinstance(data, dict):
+                  md_report += f"### {test_type.upper()}\n\n"
+                  md_report += f"- Passed: {data.get('passed', 'N/A')}\n"
+                  md_report += f"- Failed: {data.get('failed', 'N/A')}\n"
+                  if 'duration_seconds' in data:
+                      md_report += f"- Duration: {data['duration_seconds']:.2f}s\n"
+                  md_report += "\n"
+          
+          with open("final-report/test-report.md", "w") as f:
+              f.write(md_report)
+          
+          print("\n" + "="*60)
+          print("FINAL TEST REPORT")
+          print("="*60)
+          print(md_report)
+          print("="*60)
+          EOF
+      
+      - name: Upload final report
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-test-report
+          path: final-report/
+      
+      - name: Comment PR with results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('final-report/test-report.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+  # Job 7: Публикация образа (только для main ветки)
+  publish:
+    name: Publish Docker Image
+    needs: [test-unit, test-integration, test-compliance, test-e2e]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix={{branch}}-
+      
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

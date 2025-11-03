@@ -1,0 +1,1056 @@
+{
+  "graph_type": "build",
+  "nodes": [
+    {
+      "id": "389-ds-base",
+      "label": "389-ds-base",
+      "metadata": {}
+    },
+    {
+      "id": "A-FOT",
+      "label": "A-FOT",
+      "metadata": {}
+    },
+    {
+      "id": "A-Tune-BPF-Collection",
+      "label": "A-Tune-BPF-Collection",
+      "metadata": {}
+    },
+    {
+      "id": "AFLplusplus",
+      "label": "AFLplusplus",
+      "metadata": {}
+    },
+    {
+      "id": "BareBonesBrowserLaunch",
+      "label": "BareBonesBrowserLaunch",
+      "metadata": {}
+    },
+    {
+      "id": "Bear",
+      "label": "Bear",
+      "metadata": {}
+    },
+    {
+      "id": "CUnit",
+      "label": "CUnit",
+      "metadata": {}
+    },
+    {
+      "id": "CharLS",
+      "label": "CharLS",
+      "metadata": {}
+    },
+    {
+      "id": "ComputeLibrary",
+      "label": "ComputeLibrary",
+      "metadata": {}
+    },
+    {
+      "id": "Cython",
+      "label": "Cython",
+      "metadata": {}
+    },
+    {
+      "id": "lmdb-devel",
+      "label": "lmdb-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "icu",
+      "label": "icu",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "cyrus-sasl-devel",
+      "label": "cyrus-sasl-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "gcc-c++",
+      "label": "gcc-c++",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-ldap",
+      "label": "python3-ldap",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-policycoreutils",
+      "label": "python3-policycoreutils",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig(krb5)",
+      "label": "pkgconfig(krb5)",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "lm_sensors-devel",
+      "label": "lm_sensors-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "autoconf",
+      "label": "autoconf",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "cargo",
+      "label": "cargo",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libtool",
+      "label": "libtool",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pam-devel",
+      "label": "pam-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-pyasn1",
+      "label": "python3-pyasn1",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libtevent-devel",
+      "label": "libtevent-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-libselinux",
+      "label": "python3-libselinux",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-pyasn1-modules",
+      "label": "python3-pyasn1-modules",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-six",
+      "label": "python3-six",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "nss-devel",
+      "label": "nss-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "chrpath",
+      "label": "chrpath",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libicu-devel",
+      "label": "libicu-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig(systemd)",
+      "label": "pkgconfig(systemd)",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "bzip2-devel",
+      "label": "bzip2-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "perl-generators",
+      "label": "perl-generators",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libdb-devel",
+      "label": "libdb-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "npm",
+      "label": "npm",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "openldap-devel",
+      "label": "openldap-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pcre-devel",
+      "label": "pcre-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "zlib-devel",
+      "label": "zlib-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "cracklib-devel",
+      "label": "cracklib-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "doxygen",
+      "label": "doxygen",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libcmocka-devel",
+      "label": "libcmocka-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "rsync",
+      "label": "rsync",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libtalloc-devel",
+      "label": "libtalloc-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "openssl-devel",
+      "label": "openssl-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-dateutil",
+      "label": "python3-dateutil",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-setuptools",
+      "label": "python3-setuptools",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libevent-devel",
+      "label": "libevent-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "net-snmp-devel",
+      "label": "net-snmp-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "json-c-devel",
+      "label": "json-c-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig",
+      "label": "pkgconfig",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-devel",
+      "label": "python3-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "systemd-units",
+      "label": "systemd-units",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3",
+      "label": "python3",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "systemd-devel",
+      "label": "systemd-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "nspr-devel",
+      "label": "nspr-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-argcomplete",
+      "label": "python3-argcomplete",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "nodejs",
+      "label": "nodejs",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-packaging",
+      "label": "python3-packaging",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "automake",
+      "label": "automake",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "python3-argparse-manpage",
+      "label": "python3-argparse-manpage",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "clang",
+      "label": "clang",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "llvm",
+      "label": "llvm",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "libbpf-devel",
+      "label": "libbpf-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "lld",
+      "label": "lld",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "gcc-plugin-devel",
+      "label": "gcc-plugin-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "make",
+      "label": "make",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "gcc",
+      "label": "gcc",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "llvm-devel",
+      "label": "llvm-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "javapackages-local",
+      "label": "javapackages-local",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "java-devel",
+      "label": "java-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "grpc-plugins",
+      "label": "grpc-plugins",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "c-ares-devel",
+      "label": "c-ares-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "glibc-debuginfo",
+      "label": "glibc-debuginfo",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "cmake",
+      "label": "cmake",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "grpc-devel",
+      "label": "grpc-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig(absl_synchronization)",
+      "label": "pkgconfig(absl_synchronization)",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "glibc-devel",
+      "label": "glibc-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig(protobuf)",
+      "label": "pkgconfig(protobuf)",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "protobuf-devel",
+      "label": "protobuf-devel",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig(grpc)",
+      "label": "pkgconfig(grpc)",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "bash-completion",
+      "label": "bash-completion",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "pkgconfig(grpc++)",
+      "label": "pkgconfig(grpc++)",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "git-core",
+      "label": "git-core",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "scons",
+      "label": "scons",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "bc",
+      "label": "bc",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "hostname",
+      "label": "hostname",
+      "metadata": {
+        "placeholder": "true"
+      }
+    },
+    {
+      "id": "diffutils",
+      "label": "diffutils",
+      "metadata": {
+        "placeholder": "true"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "389-ds-base",
+      "target": "lmdb-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "icu",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "cyrus-sasl-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "gcc-c++",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-ldap",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-policycoreutils",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "pkgconfig(krb5)",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "lm_sensors-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "autoconf",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "cargo",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libtool",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "pam-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-pyasn1",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libtevent-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-libselinux",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-pyasn1-modules",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-six",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "nss-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "chrpath",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libicu-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "pkgconfig(systemd)",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "bzip2-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "perl-generators",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libdb-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "npm",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "openldap-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "pcre-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "zlib-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "cracklib-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "doxygen",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libcmocka-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "rsync",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libtalloc-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "openssl-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-dateutil",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-setuptools",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "libevent-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "net-snmp-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "json-c-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "pkgconfig",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "systemd-units",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "systemd-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "nspr-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-argcomplete",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "nodejs",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-packaging",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "automake",
+      "type": "dependency"
+    },
+    {
+      "source": "389-ds-base",
+      "target": "python3-argparse-manpage",
+      "type": "dependency"
+    },
+    {
+      "source": "A-FOT",
+      "target": "gcc-c++",
+      "type": "dependency"
+    },
+    {
+      "source": "A-Tune-BPF-Collection",
+      "target": "clang",
+      "type": "dependency"
+    },
+    {
+      "source": "A-Tune-BPF-Collection",
+      "target": "llvm",
+      "type": "dependency"
+    },
+    {
+      "source": "A-Tune-BPF-Collection",
+      "target": "libbpf-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "lld",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "clang",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "gcc-plugin-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "make",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "gcc",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "llvm-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "AFLplusplus",
+      "target": "chrpath",
+      "type": "dependency"
+    },
+    {
+      "source": "BareBonesBrowserLaunch",
+      "target": "javapackages-local",
+      "type": "dependency"
+    },
+    {
+      "source": "BareBonesBrowserLaunch",
+      "target": "java-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "grpc-plugins",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "c-ares-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "glibc-debuginfo",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "cmake",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "grpc-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "make",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "gcc-c++",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "pkgconfig(absl_synchronization)",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "gcc",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "glibc-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "pkgconfig(protobuf)",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "protobuf-devel",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "pkgconfig(grpc)",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "bash-completion",
+      "type": "dependency"
+    },
+    {
+      "source": "Bear",
+      "target": "pkgconfig(grpc++)",
+      "type": "dependency"
+    },
+    {
+      "source": "CUnit",
+      "target": "libtool",
+      "type": "dependency"
+    },
+    {
+      "source": "CUnit",
+      "target": "automake",
+      "type": "dependency"
+    },
+    {
+      "source": "CharLS",
+      "target": "cmake",
+      "type": "dependency"
+    },
+    {
+      "source": "CharLS",
+      "target": "gcc",
+      "type": "dependency"
+    },
+    {
+      "source": "CharLS",
+      "target": "gcc-c++",
+      "type": "dependency"
+    },
+    {
+      "source": "ComputeLibrary",
+      "target": "git-core",
+      "type": "dependency"
+    },
+    {
+      "source": "ComputeLibrary",
+      "target": "gcc-c++",
+      "type": "dependency"
+    },
+    {
+      "source": "ComputeLibrary",
+      "target": "scons",
+      "type": "dependency"
+    },
+    {
+      "source": "Cython",
+      "target": "bc",
+      "type": "dependency"
+    },
+    {
+      "source": "Cython",
+      "target": "python3-setuptools",
+      "type": "dependency"
+    },
+    {
+      "source": "Cython",
+      "target": "hostname",
+      "type": "dependency"
+    },
+    {
+      "source": "Cython",
+      "target": "gcc",
+      "type": "dependency"
+    },
+    {
+      "source": "Cython",
+      "target": "diffutils",
+      "type": "dependency"
+    },
+    {
+      "source": "Cython",
+      "target": "python3-devel",
+      "type": "dependency"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+# System Audit Blacklist Patterns
+# Files matching these patterns will be ignored during monitoring
+# Supports glob patterns (* and ?)
+#
+# Lines starting with # are comments
+# Empty lines are ignored
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+*.backup
+*.old
+
+# Log files
+*.log
+*.log.*
+*.log.gz
+*.log.bz2
+
+# Python cache and compiled files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/*
+*.egg-info/*
+*.egg
+
+# Git directory
+.git/*
+.gitignore
+.gitattributes
+.gitmodules
+
+# Editor and IDE files
+.*.sw?
+.vscode/*
+.idea/*
+*.sublime-*
+*.sublime-workspace
+*.sublime-project
+*~
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Lock files
+*.lock
+.*.lock
+*.pid
+
+# Package manager caches
+node_modules/*
+.npm/*
+.cache/*
+.yarn/*
+vendor/*
+
+# Build artifacts
+*.o
+*.so
+*.a
+*.out
+*.exe
+*.dll
+*.dylib
+dist/*
+build/*
+target/*
+
+# Temporary directories
+/tmp/*
+/var/tmp/*
+/var/cache/*
+/var/log/*
+
+# Database files (often large and frequently changing)
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Compressed archives
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.tar.bz2
+*.rar
+*.7z
+
+# Media files (usually not configuration)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.ico
+*.svg
+*.mp3
+*.mp4
+*.avi
+*.mov
+*.wav
+
+# Documentation build artifacts
+_build/*
+.doctrees/*
+htmlcov/*

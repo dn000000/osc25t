@@ -1,0 +1,8 @@
+{
+  "repo_path": "test_manual/services",
+  "branch": "main",
+  "socket_path": "/var/run/gitproc.sock",
+  "state_file": "/var/lib/gitproc/state.json",
+  "log_dir": "/var/log/gitproc",
+  "cgroup_root": "/sys/fs/cgroup/gitproc"
+}

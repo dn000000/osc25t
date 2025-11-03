@@ -1,0 +1,107 @@
+# Makefile для Docker операций
+.PHONY: help build test test-unit test-integration test-compliance test-e2e clean report shell
+
+# Переменные
+IMAGE_NAME := sysaudit
+IMAGE_TAG := test
+CONTAINER_NAME := sysaudit-test
+
+help: ## Показать справку
+	@echo "Доступные команды:"
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+build: ## Собрать Docker образ
+	@echo "Сборка Docker образа..."
+	docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
+
+test: build ## Запустить все тесты
+	@echo "Запуск всех тестов..."
+	@./scripts/run-docker-tests.sh
+
+test-unit: build ## Запустить unit тесты
+	@echo "Запуск unit тестов..."
+	docker run --rm \
+		-v $$(pwd)/test-results:/app/test-results \
+		-v $$(pwd)/htmlcov:/app/htmlcov \
+		$(IMAGE_NAME):$(IMAGE_TAG) \
+		python run_tests.py --unit --coverage --html-coverage
+
+test-integration: build ## Запустить integration тесты
+	@echo "Запуск integration тестов..."
+	docker run --rm \
+		-v $$(pwd)/test-results:/app/test-results \
+		$(IMAGE_NAME):$(IMAGE_TAG) \
+		python run_tests.py --integration
+
+test-compliance: build ## Запустить compliance тесты
+	@echo "Запуск compliance тестов..."
+	docker run --rm \
+		-v $$(pwd)/test-results:/app/test-results \
+		$(IMAGE_NAME):$(IMAGE_TAG) \
+		python run_tests.py --compliance
+
+test-e2e: build ## Запустить E2E тесты
+	@echo "Запуск E2E тестов..."
+	docker run --rm \
+		--user root \
+		-v $$(pwd)/test-results:/app/test-results \
+		-e PYTHONUNBUFFERED=1 \
+		$(IMAGE_NAME):$(IMAGE_TAG) \
+		python tests/e2e/test_real_user_scenarios.py
+
+report: ## Показать отчет о тестах
+	@if [ -f test-results/final-report.json ]; then \
+		python3 -c "import json; print(json.dumps(json.load(open('test-results/final-report.json')), indent=2))"; \
+	else \
+		echo "Отчет не найден. Запустите 'make test' сначала."; \
+	fi
+
+coverage: ## Открыть coverage отчет
+	@if [ -f htmlcov/index.html ]; then \
+		if command -v xdg-open > /dev/null; then \
+			xdg-open htmlcov/index.html; \
+		elif command -v open > /dev/null; then \
+			open htmlcov/index.html; \
+		else \
+			echo "Откройте htmlcov/index.html в браузере"; \
+		fi \
+	else \
+		echo "Coverage отчет не найден. Запустите 'make test-unit' сначала."; \
+	fi
+
+shell: build ## Запустить интерактивный shell в контейнере
+	docker run -it --rm \
+		-v $$(pwd)/sysaudit:/app/sysaudit \
+		-v $$(pwd)/tests:/app/tests \
+		$(IMAGE_NAME):$(IMAGE_TAG) \
+		/bin/bash
+
+clean: ## Очистить артефакты и образы
+	@echo "Очистка..."
+	rm -rf test-results htmlcov
+	docker-compose down -v 2>/dev/null || true
+	docker rmi $(IMAGE_NAME):$(IMAGE_TAG) 2>/dev/null || true
+
+clean-all: clean ## Полная очистка (включая Docker кеш)
+	docker system prune -af --volumes
+
+compose-up: ## Запустить через docker-compose
+	docker-compose up --abort-on-container-exit
+
+compose-down: ## Остановить docker-compose
+	docker-compose down -v
+
+compose-build: ## Собрать через docker-compose
+	docker-compose build
+
+logs: ## Показать логи контейнера
+	docker logs $(CONTAINER_NAME) 2>/dev/null || echo "Контейнер не запущен"
+
+ps: ## Показать запущенные контейнеры
+	docker ps -a --filter "name=$(CONTAINER_NAME)"
+
+inspect: build ## Показать информацию об образе
+	docker inspect $(IMAGE_NAME):$(IMAGE_TAG)
+
+size: build ## Показать размер образа
+	docker images $(IMAGE_NAME):$(IMAGE_TAG)

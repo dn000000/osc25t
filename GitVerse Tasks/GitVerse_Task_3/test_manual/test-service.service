@@ -1,3 +1,0 @@
-[Service]
-ExecStart=python -c "import time; print('Service started'); time.sleep(60)"
-Restart=always
